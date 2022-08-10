@@ -29,7 +29,7 @@ describe('Search for job', function() {
         describe('Location filter box', () => {
             beforeEach(() => {
                 return careerPage.selectLocation();
-            })
+            });
             it('should provide a way to filter a specific location', () => {
                 return expect(careerPage.locationArrow.isDisplayed()).to.eventually.be.true;
 
@@ -56,6 +56,8 @@ describe('Search for job', function() {
             return expect(careerPage.submitButton.isDisplayed()).to.eventually.be.true;
 
         });
+
+
                
     });
 
@@ -67,7 +69,8 @@ describe('Listed jobs', function() {
     this.timeout(GLOBAL_TIMEOUT);
 
     this.beforeEach(() => {
-        careerPage.loadJobs();
+       return careerPage.loadJobs();
+       
     });
 
     describe('Jobs page', () => {
@@ -79,6 +82,10 @@ describe('Listed jobs', function() {
         it('should contain job description ', () => {
             
             return expect(careerPage.jobInfo.isDisplayed()).to.eventually.be.true;
+        });
+
+        it('should contain the text with input keyword', () => {
+            return expect(careerPage.applyButton.getText()).to.eventually.contain('VIEW AND APPLY');
         });
 
        
