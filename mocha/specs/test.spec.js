@@ -4,8 +4,13 @@ const { expect } = require('chai');
 const CareerPage = require('../../pageObjects/careerPage');
 
 const careerPage = new CareerPage();
+const fs = require('fs');
+const { getEnvironmentData } = require('worker_threads');
+const { browser } = require('protractor');
+const path = require('path');
 
-
+  
+  
 describe('Search for job', function() {
     this.timeout(GLOBAL_TIMEOUT);
 
@@ -73,6 +78,24 @@ describe('Listed jobs', function() {
        
     });
 
+     // https://stackoverflow.com/questions/38321028/how-to-take-screenshot-in-protractor-on-failure-of-test-cases
+    //   olyan esetre találtam ezt a kódot, ahol a framework: 'custom'
+    // const path = require('path') kell hozzá
+   // ez már csinál képet, feltöltöttem (test.png), amiről csinálta pedig "hiba.jpg" néven 
+
+    this.afterEach(() => {
+        protractor.browser.takeScreenshot().then(function(screenshot) {
+            const screenshots = path.join(process.cwd(), './mocha');
+        
+            fs.writeFile(screenshots + '/test.png', screenshot, 'base64', function (err) {
+              if (err) {
+                  throw err;
+              }
+              console.log('File saved.');
+            });
+          });
+    });
+
     describe('Jobs page', () => {
         it('should be opened', () => {
            
@@ -86,6 +109,7 @@ describe('Listed jobs', function() {
 
         it('should contain the text with input keyword', () => {
             return expect(careerPage.applyButton.getText()).to.eventually.contain('VIEW AND APPLY');
+                        
         });
 
        
