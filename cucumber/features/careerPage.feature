@@ -14,11 +14,10 @@ And The location filter box arrow should be visible
 
 When The location filter box is selected
 Then The location arrow should be displayed 
-And It should provide a way to filter a location by clicking
 
 Given The jobs page is opened
-Then The logo should be visible
-And The url should be be the expected opened
+Then The logo again should be visible
+And The url expected to be the url of the job page
 And it should contain a job description
 And it should contain the apply button
 
