@@ -1,4 +1,14 @@
 'use strict';
+'use strict'
+
+const { expect } = require('chai');
+const CareerPage = require('../../pageObjects/careerPage');
+
+const careerPage = new CareerPage();
+const fs = require('fs');
+
+const path = require('path');
+
 
 const { Given, When, Then, setDefaultTimeout } = require('cucumber');
 
@@ -6,73 +16,56 @@ setDefaultTimeout(GLOBAL_TIMEOUT);
 
 
 Given('The career page is opened', function () {
-    // Write code here that turns the phrase above into concrete actions
-    return 'pending';
+    return careerPage.load();
   });
 
 Then('The logo should be visible', function () {
-    // Write code here that turns the phrase above into concrete actions
-    return 'pending';
+    return expect(careerPage.logo.isDisplayed()).to.eventually.be.true;
   });
 
 Then('The search form should be displayed', function () {
-   // Write code here that turns the phrase above into concrete actions
-   return 'pending';
+    return expect(careerPage.searchForm.isDisplayed()).to.eventually.be.true;;
   });
 
 Then('The keyword input field should be visible', function () {
-   // Write code here that turns the phrase above into concrete actions
-   return 'pending';
+    return expect(careerPage.keywordInput.isDisplayed()).to.eventually.be.true;
   });
 
 Then('The submit button should be visible', function () {
-   // Write code here that turns the phrase above into concrete actions
-   return 'pending';
+   return expect(careerPage.submitButton.isDisplayed()).to.eventually.be.true;
   });
 
 Then('The location filter box arrow should be visible', function () {
-   // Write code here that turns the phrase above into concrete actions
-   return 'pending';
+   return expect(careerPage.locationArrow.isDisplayed()).to.eventually.be.true;
   });
 
 When('The location filter box is selected', function () {
-    // Write code here that turns the phrase above into concrete actions
-    return 'pending';
+   return careerPage.selectLocation();
   });
 
 Then('The location arrow should be displayed', function () {
-    // Write code here that turns the phrase above into concrete actions
-    return 'pending';
-  });
-
-Then('It should provide a way to filter a location by clicking', function () {
-   // Write code here that turns the phrase above into concrete actions
-   return 'pending';
+    return expect(careerPage.locationArrow.isDisplayed()).to.eventually.be.true;;
   });
 
 
 Given('The jobs page is opened', function () {
-   // Write code here that turns the phrase above into concrete actions
-   return 'pending';
+    return careerPage.loadJobs();
   });
 
-Then('The logo should be visible', function () {
-   // Write code here that turns the phrase above into concrete actions
-   return 'pending';
+Then('The logo again should be visible', function () {
+    return expect(careerPage.logo.isDisplayed()).to.eventually.be.true
   });
 
 Then('The url expected to be the url of the job page', function () {
-   // Write code here that turns the phrase above into concrete actions
-   return 'pending';
+    return expect(careerPage.url).to.equal('https://www.epam.com/careers/job-listings?query=debrecen&country=Hungary');
   });
 
  Then('it should contain a job description', function () {
-   // Write code here that turns the phrase above into concrete actions
-   return 'pending';
+    return expect(careerPage.jobInfo.isDisplayed()).to.eventually.be.true;
   });
 
 
 Then('it should contain the apply button', function () {
-   // Write code here that turns the phrase above into concrete actions
-   return 'pending';
+   const viewjob = careerPage.applyButton.getText()
+   return expect(viewjob).to.eventually.contain('VIEW AND APPLY');
   });
