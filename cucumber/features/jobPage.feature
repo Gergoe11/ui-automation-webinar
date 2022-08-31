@@ -4,19 +4,28 @@ two different EPAM locations
 
 
 
-Scenario Outline: Jobs page searching
+Scenario Outline: Jobs page searching - location
 Given The career site is opened
 
+When The "all locations" option is selected  
 When The <searchword> is submitted
-Then The page "logo" should be visible
-And The url expected to match with the url of the <desiredPage>
-And it should contain the "job description"
-And the "apply" button should contain the text "view and apply"
+Then The "logo" should be visible
+
+And it should include the "jobInfo"
+And The "applyButton" should contain the text "VIEW AND APPLY"
+And The url expected to match with the url of the <country>
+
 
 Examples:
-    | searchword      | desiredpage      | 
-    | debrecen        | debrecenJobs     |
-    | szeged          | szegedJobs       |   
+    | searchword      | country      | 
+    | debrecen        | Hungary      |
+    | szeged          | Hungary      |   
+
+
+
+
+
+
 
 
 
