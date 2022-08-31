@@ -18,9 +18,8 @@ Then The "locationArrow" should be displayed
 Given The "jobs page" is opened
 Then The "logo" should be visible
 And The url expected to be the url of the "jobs page"
-And it should contain a "job description"
-And it should contain the "apply button"
-
+And It should contain "jobInfo"
+And The "applyButton" should have the text "VIEW AND APPLY"
 
 
 
