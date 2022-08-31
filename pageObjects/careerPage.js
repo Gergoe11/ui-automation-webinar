@@ -20,6 +20,7 @@ class CareerPage {
         this.jobInfo = element(by.css('.search-result__item-name'));
         this.contactButton = element(by.css('.button__content button__content--desktop'));
         this.allLocations = element(by.xpath('//*[@id="jobSearchFilterForm"]/div[2]/div/span/span[1]/span/span[1]'));
+        this.url = 'https://www.epam.com/careers/job-listings?query=debrecen&country=Hungary'
                 
     }
 
@@ -29,7 +30,7 @@ class CareerPage {
     };
 
     loadJobs() {
-        
+     
         browser.get(this.url);
         return browser.wait(ec.elementToBeClickable(this.logo), GLOBAL_TIMEOUT);
     }
@@ -66,8 +67,9 @@ class CareerPage {
         this.allLocations.click();
 
     }
+
     
-    
+ 
 
 
 
