@@ -18,31 +18,35 @@ Given('The career site is opened', function () {
 
   });
 
-  When(/The (.+) is submitted/, function (string) {
-    careerPage.selectLocation();
-    return careerPage.sendKeys();
+  When(/The "all locations" option is selected/, function(){
+      return careerPage.selectAll();
   });
 
-  Then(/The page "(.+)" should be visible/, function (element) {
+  When(/The (.+) is submitted/, function (searchword) {
+    browser.wait(ec.visibilityOf(careerPage.keywordInput), GLOBAL_TIMEOUT)
+    return careerPage.sendKeys(searchword);
+  });
+
+ 
+
+  Then(/The "(.+)" should be visible/, function (element) {
     return expect(careerPage[element].isDisplayed()).to.eventually.be.true;
   });
 
-  Then(/The url expected to match with the url of the (.+)/, function (desiredpage) {
-    switch(desiredpage){
-      case 'debrecenJobs':
-        return expect(careerPage.url).to.equal('https://www.epam.com/careers/job-listings?query=debrecen&country=Hungary');
-      case "szegedJobs":
-        return expect(careerPage.url).to.equal('https://www.epam.com/careers/job-listings?query=szeged&country=Hungary');
-    }
+  Then(/The url expected to match with the url of the (.+)/, function (country) {
+    let pageUrl = browser.getCurrentUrl();
+    return expect(pageUrl).to.eventually.contain(country);
         
   });
 
-  Then(/it should contain the "job description"/, function () {
-    browser.wait(ec.visibilityOf(careerPage.jobInfo), GLOBAL_TIMEOUT);
-    return expect(careerPage.jobInfo.isDisplayed()).to.eventually.be.true;;
+  Then(/it should include the "(.+)"/, function (element) {
+    browser.wait(ec.visibilityOf(careerPage[element]), GLOBAL_TIMEOUT);
+    return expect(careerPage[element].isDisplayed()).to.eventually.be.true;;
   });
 
-  Then(/the "apply" button should contain the text "view and apply"/, function () {
-    const viewJob = careerPage.applyButton.getText();
-    return expect(viewJob).to.eventually.contain('VIEW AND APPLY')
+  Then(/The "(.+)" should contain the text "(.+)"/, function (element, expectedText) {
+    const actualText = careerPage[element].getText();
+    return expect(actualText).to.eventually.contain(expectedText)
   });
+
+ 
