@@ -11,21 +11,24 @@ class CareerPage {
         this.logo = element(by.css('.header__logo'));
         this.acceptButton = element(by.id('onetrust-accept-btn-handler'));
         this.searchForm = element(by.id('new_form_job_search_1445745853_copy-keyword'));
-        this.locationArrow = element(by.xpath('//*[@id="jobSearchFilterForm"]/div[2]/div/span/span[1]/span/span[2]/b'));
-        //this.country = element(by.xpath('//*[@id="select2-new_form_job_search_1445745853_copy-location-results"]/li[25]/strong'));
-        this.country = element(by.css('li[aria-label="Hungary"] strong'));
+        this.locationArrow = element(by.css('.select2-selection__arrow'))
+        //this.country = element(by.css('.select2 select2-container select2-container--default form-component__field select2-container--below select2-container--focus'));
+        this.country = element(by.id('select2-new_form_job_search_1445745853_copy-location-result-kftm-all_Hungary'));
         this.submitButton = element(by.css('.recruiting-search__submit'));
         this.keywordInput = element(by.id('new_form_job_search_1445745853_copy-keyword'));
-        this.locationInput = element(by.css('.select2-selection__rendered'));
         this.searchwordInput = element(by.css('.select2-search__field'));
+        //this.searchwordInput = element(by.css('.select2-selection__rendered'));
         this.selectresult = element(by.css('.select2-results__option select2-results__option--highlighted'));
         this.applyButton = element.all(by.css('.search-result__item-apply'));
         this.jobInfo = element(by.css('.search-result__item-name'));
         this.contactButton = element(by.css('.button__content button__content--desktop'));
-        //this.allLocations = element(by.xpath('//*[@id="jobSearchFilterForm"]/div[2]/div/span[1]'));
         this.allLocations = element(by.css('span[title="All Cities in Hungary"]'));
-        this.url = 'https://www.epam.com/careers/job-listings?query=debrecen&country=Hungary'
-
+        this.url = 'https://www.epam.com/careers/job-listings?country=all'
+        this.allCountries = element.all(by.css('strong.select2-results__group'));
+        this.allCities = element.all(by.css('li.select2-results__option'));
+        //this.suggestedCity = element(by.css('.select2-results__option select2-results__option--highlighted'));
+        this.suggestedCity = element(by.css('.select2-results__options.open'));
+        
     }
 
     load() {
@@ -36,48 +39,71 @@ class CareerPage {
     loadJobs() {
 
         browser.get(this.url);
-        return browser.wait(ec.elementToBeClickable(this.logo), GLOBAL_TIMEOUT);
+        browser.wait(ec.elementToBeClickable(this.logo), GLOBAL_TIMEOUT);
+        return this.acceptAll();
     }
 
     acceptAll() {
+
+              
         return browser.isElementPresent(this.acceptButton)
             .then(isPresent => {
                 if (isPresent) {
                     this.acceptButton.click();
                 }
             });
+
+            
     };
 
     selectLocation() {
-        browser.wait(ec.elementToBeClickable(this.locationArrow), GLOBAL_TIMEOUT); 
-        this.locationArrow.click();
+        browser.wait(ec.elementToBeClickable(this.locationArrow), GLOBAL_TIMEOUT);
+        return this.locationArrow.click();
        
-
-
     }
 
-    location() {
-        browser.wait(ec.elementToBeClickable(this.allLocations), GLOBAL_TIMEOUT); 
-        this.allLocations.click();
-    }
-
-
-    sendKeys(city) {
-        //browser.wait(ec.visibilityOf(this.keywordInput), GLOBAL_TIMEOUT)
-        this.keywordInput.sendKeys(city)
-       .sendKeys(protractor.Key.ENTER);
-       // this.submitButton.click();
-        //browser.wait(ec.visibilityOf(this.applyButton), GLOBAL_TIMEOUT)
-    }
-
+        
     
 
 
+  
+    clicksearchWord(){
+              browser.wait(ec.elementToBeClickable(this.searchwordInput), GLOBAL_TIMEOUT);
+        return this.searchwordInput.click();
+    }   
+
+    suggestedClick(){
+        browser.wait(ec.visibilityOf(this.suggestedCity), GLOBAL_TIMEOUT);
+        return this.suggestedCity.click();
+    }
+
+    selectCity(city) {
+
+    let place = element(by.cssContainingText('li.select2-results__option', `${city}`));
+    browser.wait(ec.elementToBeClickable(place), GLOBAL_TIMEOUT);
+    return place.click();   
+
+    }
+        
+    clickSubmit () {
+    browser.wait(ec.elementToBeClickable(this.submitButton), GLOBAL_TIMEOUT);
+    return this.submitButton.click();
+    }
+   
+   
 
     writeInput(city) {
-       
-        this.keywordInput.sendKeys(city)
-         .sendKeys(protractor.Key.ENTER)
+        browser.wait(ec.visibilityOf(this.searchwordInput), GLOBAL_TIMEOUT);
+        return this.searchwordInput.sendKeys(city);
+                
+        // .sendKeys(protractor.Key.ENTER)
+        
+    }
+
+    writeKeyword(profession) {
+        browser.sleep(3000);
+        this.keywordInput.click();
+        return this.keywordInput.sendKeys(profession)
     }
 
 
@@ -87,3 +113,4 @@ class CareerPage {
 
 
 module.exports = CareerPage;
+
