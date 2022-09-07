@@ -1,6 +1,6 @@
 Feature: Epam job searching
-The user wants to search for 2 type of jobs in 
-one of the EPAM locations
+The user wants to search for different available jobs in 
+2 EPAM locations
 
 
 
@@ -20,7 +20,7 @@ And The "applyButton" should contain the text "VIEW AND APPLY"
 Examples:
   | city     | profession | job        |
   | Debrecen | developer  | developer  |
-  | Debrecen | automation | automation |
+  | Szeged   | automation | automation |
 
 
 
