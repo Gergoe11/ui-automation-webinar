@@ -6,6 +6,8 @@ The user wants to search for different available jobs in
 
 Scenario Outline: Jobs page searching - location
 Given The career site is opened
+Then The "searchForm" should be displayed
+And The "keywordInput" should be displayed
 
 When The location arrow is clicked
 And The <city> is submitted
@@ -21,6 +23,7 @@ Examples:
   | city     | profession | job        |
   | Debrecen | developer  | developer  |
   | Szeged   | automation | automation |
+  | Krakow   | data       | data       |
 
 
 

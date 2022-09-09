@@ -3,17 +3,16 @@ Feature: EPAM job searching
   I want to browser through EPAM Job offers by various criteria
   So I can find to best fitting offer for me
 
+  #step definiton file: jobPage.js
+
 Scenario: Searching at EPAM career page
 Given The career page is opened
 
 Then The "logo" should be visible
 And The "searchForm" should be displayed
 And The "keywordInput" should be displayed
-And The "submitButton" should be visible
-And The "locationArrow" should be visible
-
-When The "location filter box" is selected
-Then The "locationArrow" should be displayed 
+And The "submitButton" should be displayed
+And The "locationArrow" should be displayed
 
 Given The "jobs page" is opened
 Then The "logo" should be visible
