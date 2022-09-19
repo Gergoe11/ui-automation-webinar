@@ -60,9 +60,8 @@ describe('Search for job', function () {
 
         });
 
-
-
     });
+
 
 
 });
@@ -72,8 +71,11 @@ describe('Listed jobs', function () {
     this.timeout(GLOBAL_TIMEOUT);
 
     this.beforeEach(() => {
-        return careerPage.loadJobs();
-
+        careerPage.loadJobs();
+        careerPage.keywordInput.click();
+        careerPage.keywordInput.sendKeys('Budapest');
+        careerPage.clickSubmit();
+        return browser.sleep(2000);
     });
 
 
@@ -94,7 +96,11 @@ describe('Listed jobs', function () {
     describe('Jobs page', () => {
         it('should be opened', () => {
             let pageurl = browser.getCurrentUrl();
-            return expect(pageurl).to.eventually.equal(careerPage.url);
+            return expect(pageurl).to.eventually.contain('Budapest');
+        });
+
+        it('should display apply button after searching', () => {
+            return expect(careerPage.applyButton.isDisplayed()).to.eventually.be.true;
         });
 
         it('should contain job description ', () => {
