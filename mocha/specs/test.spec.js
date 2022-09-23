@@ -1,15 +1,11 @@
 'use strict'
-
 const { expect } = require('chai');
 const CareerPage = require('../../pageObjects/careerPage');
-
 const careerPage = new CareerPage();
 const fs = require('fs');
 const { getEnvironmentData } = require('worker_threads');
 const { browser } = require('protractor');
 const path = require('path');
-
-
 
 describe('Search for job', function () {
     this.timeout(GLOBAL_TIMEOUT);
@@ -23,7 +19,6 @@ describe('Search for job', function () {
         it('should be opened', () => {
             return expect(careerPage.logo.isDisplayed()).to.eventually.be.true;
         });
-
     });
 
     describe('Search form', () => {
@@ -37,17 +32,13 @@ describe('Search for job', function () {
             });
             it('should provide a way to filter a specific location', () => {
                 return expect(careerPage.locationArrow.isDisplayed()).to.eventually.be.true;
-
             });
 
             it('should contain country', async () => {
                 const countryName = careerPage.suggestedCity.getText();
                 return expect(countryName).to.eventually.contain("Hungary");
             });
-
         });
-
-
     });
 
     describe('Keyword input', () => {
@@ -57,15 +48,9 @@ describe('Search for job', function () {
 
         it('should have a submit button', () => {
             return expect(careerPage.submitButton.isDisplayed()).to.eventually.be.true;
-
         });
-
     });
-
-
-
 });
-
 
 describe('Listed jobs', function () {
     this.timeout(GLOBAL_TIMEOUT);
@@ -74,11 +59,9 @@ describe('Listed jobs', function () {
         careerPage.loadJobs();
         careerPage.keywordInput.click();
         careerPage.keywordInput.sendKeys('Budapest');
-        careerPage.clickSubmit();
+        careerPage.submitButton.click();
         return browser.sleep(2000);
     });
-
-
 
     this.afterEach(() => {
         protractor.browser.takeScreenshot().then(function (screenshot) {
@@ -110,15 +93,8 @@ describe('Listed jobs', function () {
         it('should contain the text with input keyword', () => {
             const viewjob = careerPage.applyButton.getText()
             return expect(viewjob).to.eventually.contain('VIEW AND APPLY');
-
         });
-
-
     });
-
-
-
-
 });
 
 module.exports = CareerPage;
