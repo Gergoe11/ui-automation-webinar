@@ -5,20 +5,20 @@ Feature: EPAM job searching
 
   #step definiton file: jobPage.js
 
-Scenario: Searching at EPAM career page
-Given The career page is opened
+  Scenario: Searching at EPAM career page
+    Given The career page is opened
 
-Then The "logo" should be visible
-And The "searchForm" should be displayed
-And The "keywordInput" should be displayed
-And The "submitButton" should be displayed
-And The "locationArrow" should be displayed
+    Then The "logo" should be visible
+    And The "searchForm" should be displayed
+    And The "keywordInput" should be displayed
+    And The "submitButton" should be displayed
+    And The "locationArrow" should be displayed
 
-Given The "jobs page" is opened
-Then The "logo" should be visible
-And The url expected to be the url of the "jobs page"
-And It should contain "jobInfo"
-And The "applyButton" should have the text "VIEW AND APPLY"
+    When The "jobs page" is opened
+    Then The "logo" should be visible
+    And The url expected to be the url of the "jobs page"
+    And It should contain "jobInfo"
+    And The "applyButton" should have the text "VIEW AND APPLY"
 
 
 
