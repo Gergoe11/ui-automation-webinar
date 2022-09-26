@@ -17,20 +17,12 @@ When(/The "(.+)" is clicked/, function (element) {
   return careerPage[element].click();
 });
 
-When(/The submit button is clicked/, function () {
-  return careerPage.clickSubmit();
-});
-
 When(/The (.+) is written into the field/, function (profession) {
   return careerPage.writeKeyword(profession);
 });
 
 When(/The (.+) is submitted/, function (city) {
   return careerPage.writeInput(city);
-});
-
-When(/The result is clicked/, function () {
-  return careerPage.suggestedClick();
 });
 
 Then(/The "(.+)" should be visible/, function (element) {
